@@ -2,9 +2,6 @@ package org.java.spring.spring_la_mia_pizzeria_crud.model;
 
 import java.time.LocalDate;
 
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;

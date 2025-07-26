@@ -35,7 +35,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
-                <th scope="col">Actions</th>
+                <th scope="col" sec:authorize="hasAuthority('ADMIN')">Actions</th>
+
               </tr>
             </thead>
             <th:block th:each="pizza : ${pizzas}" th:object="${pizza}">
@@ -44,7 +45,7 @@
                   <td scope="row">[[*{id}]]</td>
                   <td><a th:href="@{/pizzas/{id}(id=*{id})}">[[*{name}]]</a></td>
                   <td>[[*{price}]]&euro;</td>
-                  <td>
+                  <td sec:authorize="hasAuthority('ADMIN')">
                     <button class="btn btn-small btn-success"><a class="text-decoration-none text-white"
                         th:href="@{/pizzas/{id}/discount(id=${pizza.id})}">Add
                         discount 💸</a></button>
@@ -52,16 +53,15 @@
                         th:href="@{/pizzas/edit/{id}(id=${pizza.id})}">✏️</a></button>
                     <button class="btn btn-small btn-danger deleteBtn" th:data-pizzaname="${pizza.name}"
                       th:data-pizzaid="${pizza.id}">🗑️</button>
-
-
                   </td>
                 </tr>
               </tbody>
             </th:block>
           </table>
-          <button class="btn btn-small btn-success mb-5"><a class="text-decoration-none text-white"
+          <button sec:authorize="hasAuthority('ADMIN')" class="btn btn-small btn-success mb-5"><a class="text-decoration-none text-white"
               th:href="@{/pizzas/create}">Add
               new pizza <strong>+</strong></a></button>
+              <h3 th:text="'Hello ' +  ${username}"></h3>
         </th:block>
         <th:block th:unless="${pizzas.size() > 0}">
           <h1>💔 No pizzas were found</h1>

@@ -8,6 +8,7 @@ import org.java.spring.spring_la_mia_pizzeria_crud.repositories.DiscountReposito
 import org.java.spring.spring_la_mia_pizzeria_crud.repositories.IngredientRepository;
 import org.java.spring.spring_la_mia_pizzeria_crud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,11 +36,12 @@ public class PizzaController {
   private IngredientRepository ingredientRepository;
 
   @GetMapping
-  public String index(Model model) {
+  public String index(Authentication authentication, Model model) {
 
     List<Pizza> pizzas = pizzaService.findAll(); // & SELECT * FROM `pizzas` ==> list of objects with type pizza
 
     model.addAttribute("pizzas", pizzas);
+    model.addAttribute("username", authentication.getName());
 
     return "pizzas/index";
   }
