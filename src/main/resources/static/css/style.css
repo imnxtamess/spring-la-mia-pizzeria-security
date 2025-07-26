@@ -1,0 +1,14 @@
+.detailSection {
+  background-color: rgb(245, 224, 198);
+  min-height: 500px;
+}
+
+.deleteModal {
+  background-color: white;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  min-width: 400px;
+  border-radius: 15px;
+}

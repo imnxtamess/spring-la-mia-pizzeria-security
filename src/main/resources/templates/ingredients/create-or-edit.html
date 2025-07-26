@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crud-Pizzeria</title>
+  <th:block th:replace="~{fragments/resources :: style}"> </th:block>
+</head>
+
+<body>
+  <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+  <main>
+    <div class="container mt-5">
+
+      <h1 th:if="${edit}">[[${ingredient.name}]]</h1>
+      <h1 th:unless="${edit}">Ingredient</h1>
+
+      <form id="ingredient-form" th:object="${ingredient}"
+        th:action="${edit} ? @{|/ingredients/edit/${ingredient.id}|} : @{/ingredients/create}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+          <label for="ingredientName" class="form-label">Ingredient name</label>
+          <input type="text" class="form-control" id="ingredientName" th:field="*{name}" th:errorClass="is-invalid"
+            placeholder="Write the ingredient name here..."></input>
+          <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+            <ul>
+              <li th:each="err: ${#fields.errors('name')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+
+        <input type="submit" class="btn btn-danger" />
+
+      </form>
+
+    </div>
+  </main>
+  <th:block th:replace="~{fragments/resources :: bootstrapJs}"></th:block>
+</body>
+
+</html>

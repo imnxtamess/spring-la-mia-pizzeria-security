@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <th:block th:replace="~{fragments/resources :: style}"> </th:block>
+    <title>Crud-Pizzeria</title>
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+    <main>
+      <div class="container">
+        <div class="p-3 mb-4 bg-light rounded-3">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Welcome to Crud Pizzeria</h1>
+            <p class="col-12 fs-4">
+              Crud Pizzeria is a simple web application for managing pizzas,
+              ingredients, and orders. Easily add, edit, or remove pizzas from
+              the menu and keep track of your orders in real time.
+            </p>
+            <img
+              class="pt-4"
+              width="100%"
+              src="https://staticfanpage.akamaized.net/wp-content/uploads/sites/3/2019/12/cibo-pizza-forno-pane-alimenti-1200x675.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/resources :: bootstrapJs}"></th:block>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crud-Pizzeria</title>
+  <th:block th:replace="~{fragments/resources :: style}"> </th:block>
+</head>
+
+<body>
+  <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+  <main>
+    <div class="container mt-5">
+      <form id="pizza-form" th:object="${pizza}" th:action="@{/pizzas/create}" method="post">
+
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Pizza Name</label>
+          <input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid"
+            placeholder="Write the pizza name here.." />
+          <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+            <ul>
+              <li th:each="err: ${#fields.errors('name')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <div class="single-ingredient" th:each="ingredient : ${ingredients}">
+            <input type="checkbox" th:id="|ingredient-${ingredient.id}|" th:field="${pizza.ingredients}"
+              th:value="${ingredient.id}">
+            <label th:for="|ingredient-${ingredient.id}|" class="form-check-label" th:text="${ingredient.name}"></label>
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" th:field="*{description}" th:errorClass="is-invalid"
+            placeholder="Write the description here..."></textarea>
+          <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+            <ul>
+              <li th:each="err: ${#fields.errors('description')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="image_url" class="form-label">Image Url</label>
+          <input type="text" class="form-control" id="image_url" th:field="*{image_url}" th:errorClass="is-invalid"
+            placeholder="Write the image URL here..." />
+          <div th:if="${#fields.hasErrors('image_url')}" class="invalid-feedback">
+            <ul>
+              <li th:each="err: ${#fields.errors('image_url')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="text" class="form-control" id="price" th:field="*{price}" th:errorClass="is-invalid"
+            placeholder="Write the price here..." />
+          <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+            <ul>
+              <li th:each="err: ${#fields.errors('price')}" th:text="${err}"></li>
+            </ul>
+          </div>
+        </div>
+
+        <input type="submit" class="btn btn-danger" />
+
+      </form>
+
+    </div>
+  </main>
+  <th:block th:replace="~{fragments/resources :: bootstrapJs}"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crud-Pizzeria</title>
+  <th:block th:replace="~{fragments/resources :: style}"> </th:block>
+</head>
+
+<body>
+  <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+  <main>
+    <div class="container mt-4" th:object="${pizza}">
+      <div class="row detailSection p-3 rounded">
+        <div class="col-4">
+          <div class="border border-3 border-dark">
+            <img class="img-fluid" th:src="@{*{image_url}}" alt="" />
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="d-flex flex-column gap-2">
+            <h1>Pizza: [[*{name}]]</h1>
+            <div><span class="fw-bold">ID:</span> <span>[[*{id}]]</span></div>
+            <th:block th:if="${pizza.getIngredients().size() > 0}">
+              <div class="mb-3">
+                <ul>
+                  <li th:each=" ingredient : *{ingredients}" th:text="${ingredient.name}">
+                  </li>
+                </ul>
+              </div>
+            </th:block>
+
+
+            </ul>
+          </div>
+          <div>
+            <span class="fw-bold">Description:</span>
+            <span>[[*{description}]]</span>
+          </div>
+          <div>
+            <span class="fw-bold">Price:</span>
+            <span>[[*{price}]] &euro;</span>
+          </div>
+        </div>
+
+        <section th:unless="${pizza.discounts.size() > 0}">
+          <h2 class="fw-bold">Discounts List</h2>
+          <p class="mt-3">There currently isn't any discount linked with this pizza</p>
+        </section>
+        <section th:if="${pizza.discounts.size() > 0}" th:each="discount : ${pizza.discounts}">
+          <h2 class="fw-bold">Discounts List</h2>
+          <div class="d-flex gap-3 align-items-center">
+            <ul class="list-unstyled">
+              <li><strong>Discount name:</strong> [[${discount.discountName}]]</li>
+              <li><strong>Discount start date:</strong> [[${discount.startDate}]]</li>
+              <li><strong>Discount end date:</strong> [[${discount.endDate}]]</li>
+            </ul>
+            <button class="btn btn-small btn-primary"><a th:href="@{|/discounts/edit/${discount.id}|}">✏️</a></button>
+          </div>
+
+
+        </section>
+        <button class="mt-3 btn btn-small btn-success"><a class="text-decoration-none text-white"
+            th:href="@{/pizzas/{id}/discount(id=${pizza.id})}">Add
+            a new discount 💸</a></button>
+      </div>
+    </div>
+    </div>
+  </main>
+  <th:block th:replace="~{fragments/resources :: bootstrapJs}"></th:block>
+</body>
+
+</html>

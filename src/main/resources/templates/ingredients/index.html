@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Crud-Pizzeria</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <th:block th:replace="~{fragments/resources :: style}"> </th:block>
+</head>
+
+<body>
+  <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+  <main>
+    <div class="container text-center">
+      <h1 class="mt-3">Ingredient Manager</h1>
+      <div class="table-responsive mt-5">
+        <div class="deleteModal d-none">
+          <form class="deleteForm d-inline-block" method="post">
+            <p id="confirmMsg" class="pt-5"></p>
+            <div class="d-flex gap-3 pb-5 justify-content-center">
+              <button class="btn btn-sm btn-danger" type="submit">yes</button>
+              <button type="button" id="closeBtn" class="btn btn-sm btn-dark">no</button>
+            </div>
+          </form>
+        </div>
+        <th:block th:if="${ingredients.size() > 0}">
+          <table class="table table-primary">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <th:block th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+              <tbody>
+                <tr class="">
+                  <td scope="row">[[*{id}]]</td>
+                  <td><a th:href="@{/ingredients/{id}(id=*{id})}">[[*{name}]]</a></td>
+                  <td>
+                    <button class="btn btn-small btn-primary"><a class="text-decoration-none"
+                        th:href="@{/ingredients/edit/{id}(id=${ingredient.id})}">✏️</a></button>
+                    <button class="btn btn-small btn-danger deleteBtn" th:data-ingredientname="${ingredient.name}"
+                      th:data-ingredientid="${ingredient.id}">🗑️</button>
+
+
+                  </td>
+                </tr>
+              </tbody>
+            </th:block>
+          </table>
+          <button class="btn btn-small btn-success mb-5"><a class="text-decoration-none text-white"
+              th:href="@{/ingredients/create}">Add
+              new ingredient <strong>+</strong></a></button>
+        </th:block>
+        <th:block th:unless="${ingredients.size() > 0}">
+          <h1>💔 No ingredients were found</h1>
+          <img class="w-50" th:src="@{/public/peps.png}" alt="">
+          <button class="btn btn-small btn-success mb-5 d-block mx-auto mt-3"><a class="text-decoration-none text-white"
+              th:href="@{/ingredients/create}">Add
+              new ingredient <strong>+</strong></a></button>
+        </th:block>
+      </div>
+    </div>
+  </main>
+  <script src="/js/app.js"></script>
+  <th:block th:replace="~{fragments/resources :: bootstrapJs}"></th:block>
+</body>
+
+</html>
